@@ -1,0 +1,163 @@
+GUIDE DÉVELOPPEMENT WEB — Référence Technique pour Bradley
+
+=== HTML ===
+
+Balises sémantiques HTML5 :
+- <header> : en-tête de page ou de section
+- <nav> : navigation principale
+- <main> : contenu principal de la page
+- <section> : section thématique
+- <article> : contenu autonome
+- <aside> : contenu secondaire / sidebar
+- <footer> : pied de page
+- <figure> et <figcaption> : image avec légende
+
+Bonnes pratiques HTML :
+- Toujours déclarer <!DOCTYPE html>
+- Utiliser lang="fr" sur la balise <html>
+- Spécifier charset="UTF-8" dans le <head>
+- Utiliser des balises sémantiques plutôt que des <div> génériques
+- Toujours ajouter alt="" sur les images
+
+=== CSS ===
+
+Flexbox :
+- display: flex — active flexbox
+- flex-direction: row | column
+- justify-content: flex-start | center | flex-end | space-between | space-around
+- align-items: stretch | center | flex-start | flex-end
+- flex-wrap: nowrap | wrap
+- gap: espace entre les éléments
+
+CSS Grid :
+- display: grid
+- grid-template-columns: repeat(3, 1fr)
+- grid-template-rows: auto
+- gap: espace entre les cellules
+- grid-column: span 2 — occupe 2 colonnes
+
+Variables CSS :
+:root {
+  --couleur-primaire: #002050;
+  --couleur-accent: #DA291C;
+  --espacement-base: 16px;
+}
+Usage: color: var(--couleur-primaire);
+
+Media Queries (responsive) :
+- Mobile first : min-width
+- @media (max-width: 768px) — tablettes et mobiles
+- @media (max-width: 480px) — mobiles uniquement
+- @media (min-width: 1200px) — grands écrans
+
+=== JAVASCRIPT ===
+
+Fetch API :
+async function getData(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Erreur réseau');
+  const data = await response.json();
+  return data;
+}
+
+LocalStorage :
+- Stocker : localStorage.setItem('clé', JSON.stringify(valeur))
+- Lire : JSON.parse(localStorage.getItem('clé'))
+- Supprimer : localStorage.removeItem('clé')
+- Vider : localStorage.clear()
+
+Manipulation du DOM :
+- document.getElementById('id')
+- document.querySelector('.classe')
+- document.querySelectorAll('div')
+- element.innerHTML = '<p>Contenu</p>'
+- element.textContent = 'Texte sécurisé'
+- element.classList.add('classe')
+- element.classList.remove('classe')
+- element.classList.toggle('classe')
+
+=== REACT ===
+
+Hooks principaux :
+- useState : état local du composant
+- useEffect : effets de bord (appels API, abonnements)
+- useContext : accès au contexte global
+- useRef : référence à un élément DOM
+- useMemo : mémorisation de calculs coûteux
+- useCallback : mémorisation de fonctions
+
+Structure d'un composant React :
+import { useState, useEffect } from 'react';
+
+function MonComposant({ prop1, prop2 }) {
+  const [état, setÉtat] = useState(valeurInitiale);
+
+  useEffect(() => {
+    // Code exécuté au montage ou quand dépendances changent
+    return () => { /* nettoyage */ };
+  }, [dépendances]);
+
+  return <div>{état}</div>;
+}
+
+export default MonComposant;
+
+=== NODE.JS / EXPRESS ===
+
+Serveur Express basique :
+import express from 'express';
+const app = express();
+app.use(express.json());
+
+app.get('/api/route', (req, res) => {
+  res.json({ message: 'OK' });
+});
+
+app.post('/api/route', (req, res) => {
+  const { donnée } = req.body;
+  res.json({ reçu: donnée });
+});
+
+app.listen(3000, () => console.log('Serveur sur port 3000'));
+
+Middleware utiles :
+- cors() : autoriser les requêtes cross-origin
+- express.json() : parser le body JSON
+- express.static('dossier') : servir des fichiers statiques
+- multer : gérer les uploads de fichiers
+
+=== GIT ===
+
+Commandes essentielles :
+- git init : initialiser un dépôt
+- git add . : ajouter tous les fichiers
+- git commit -m "message" : créer un commit
+- git push origin main : pousser vers GitHub
+- git pull : récupérer les dernières modifications
+- git branch nom : créer une branche
+- git checkout nom : changer de branche
+- git merge nom : fusionner une branche
+- git log --oneline : historique compact
+- git status : état du dépôt
+
+=== BONNES PRATIQUES GÉNÉRALES ===
+
+Nommage :
+- Variables et fonctions : camelCase (maVariable)
+- Constantes : UPPER_SNAKE_CASE (MA_CONSTANTE)
+- Classes : PascalCase (MaClasse)
+- Fichiers CSS/HTML : kebab-case (mon-fichier.css)
+
+Sécurité web :
+- Ne jamais exposer les clés API côté client
+- Toujours valider les données côté serveur
+- Utiliser HTTPS en production
+- Échapper les données avant de les injecter dans le DOM
+- Utiliser Content Security Policy (CSP)
+
+Performance :
+- Minifier CSS et JS en production
+- Compresser les images (WebP de préférence)
+- Utiliser le lazy loading pour les images
+- Mettre en cache les ressources statiques
+- Limiter les requêtes HTTP

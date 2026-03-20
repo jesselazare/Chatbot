@@ -1,0 +1,115 @@
+BRADLEY — Documentation du Projet
+
+=== QU'EST-CE QUE BRADLEY ? ===
+
+Bradley est un assistant IA full-stack inspiré de Bradley Barcola, joueur du Paris Saint-Germain.
+Il est propulsé par l'API Groq (modèles LLaMA, Mixtral, Gemma) et utilise la technologie RAG (Retrieval-Augmented Generation) pour répondre en s'appuyant sur des documents.
+
+Bradley a été développé par un étudiant en 2e année de Bachelor Coding & Digital Innovation à l'IIM Digital School de Nanterre.
+
+=== ARCHITECTURE TECHNIQUE ===
+
+Frontend (dossier FrontEnd/) :
+- index.html : structure HTML de l'interface
+- style.css : thème PSG (bleu marine, rouge, or)
+- app.js : logique JavaScript (appels API, UI, mémoire, conversations)
+
+Backend (dossier BackEnd/) :
+- server.js : serveur Express avec routes API
+- rag.js : moteur RAG avec LangChain et embeddings TF-IDF
+- documents/ : base de documents indexés au démarrage
+
+Fichiers racine :
+- package.json : configuration Node.js et dépendances
+- .env : clé API Groq (ne jamais partager)
+- README.md : documentation
+
+=== FONCTIONNALITÉS ===
+
+1. Chat intelligent
+   - Streaming en temps réel (texte qui s'écrit lettre par lettre)
+   - Rendu Markdown complet (code, listes, titres, liens)
+   - Bouton stop pour interrompre la génération
+   - Bouton régénérer pour relancer la dernière réponse
+   - Copier un message en un clic
+
+2. RAG (Retrieval-Augmented Generation)
+   - Documents fixes indexés au démarrage depuis BackEnd/documents/
+   - Upload de documents depuis l'interface (PDF, TXT, MD, JSON, CSV)
+   - Recherche sémantique par similarité cosinus
+   - Citation des sources dans les réponses
+   - Badge indiquant le nombre de chunks indexés
+
+3. Mémoire intelligente
+   - Extraction automatique des infos personnelles via LLM
+   - Mémorise : prénom, âge, métier, ville, projet, stack, formation...
+   - Persistée en localStorage entre les sessions
+   - Visible dans la sidebar sous forme de tags
+
+4. Gestion des conversations
+   - Multi-conversations avec historique
+   - Titre automatique généré à partir du premier message
+   - Sauvegarde automatique en localStorage
+   - Export d'une conversation en fichier .txt
+   - Suppression individuelle ou totale
+
+5. Paramètres
+   - Choix du modèle Groq (LLaMA 70B, 8B, Mixtral, Gemma)
+   - Curseur de créativité (température 0.0 à 1.0)
+   - Compteur de tokens estimé
+
+=== DÉPENDANCES PRINCIPALES ===
+
+Backend :
+- express : serveur web
+- cors : gestion des requêtes cross-origin
+- multer : gestion des uploads
+- dotenv : gestion des variables d'environnement
+- langchain : framework RAG
+- @langchain/groq : intégration Groq
+- pdf-parse : extraction de texte depuis PDF
+
+Frontend :
+- Vanilla JS (aucun framework)
+- Polices Google : Bebas Neue, Barlow, JetBrains Mono
+
+=== DÉMARRAGE RAPIDE ===
+
+1. npm install
+2. Configurer .env avec GROQ_API_KEY=gsk_...
+3. Ajouter des documents dans BackEnd/documents/
+4. npm start
+5. Ouvrir http://localhost:3000
+
+=== RACCOURCIS CLAVIER ===
+- Entrée : envoyer un message
+- Maj+Entrée : nouvelle ligne
+- Ctrl+K : nouvelle conversation
+- Ctrl+B : ouvrir/fermer la sidebar
+
+=== MODÈLES GROQ DISPONIBLES ===
+
+llama-3.3-70b-versatile :
+- Le plus puissant et polyvalent
+- Recommandé pour les réponses complexes
+- Légèrement plus lent
+
+llama-3.1-8b-instant :
+- Très rapide
+- Idéal pour les réponses courtes
+- Utilisé pour l'extraction mémoire en arrière-plan
+
+mixtral-8x7b-32768 :
+- Grande fenêtre de contexte (32K tokens)
+- Bon pour les longs documents
+
+gemma2-9b-it :
+- Modèle Google
+- Bon équilibre vitesse/qualité
+
+=== COULEURS DU THÈME PSG ===
+- Bleu marine profond : #001a3a
+- Bleu PSG : #002050
+- Rouge PSG : #DA291C
+- Or PSG : #CEAB5D
+- Fond vantablack : #000d1f
